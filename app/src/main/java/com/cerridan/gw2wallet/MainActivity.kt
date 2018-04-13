@@ -15,11 +15,8 @@ import com.cerridan.gw2wallet.data.Currency
 import com.cerridan.gw2wallet.data.WalletEntry
 import com.cerridan.gw2wallet.util.bindView
 import com.cerridan.gw2wallet.view.CurrencyItemView
-import io.reactivex.Observable
-import io.reactivex.Observable.combineLatest
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers.io
 import javax.inject.Inject
 
@@ -40,18 +37,15 @@ class MainActivity : AppCompatActivity() {
     walletView.adapter = adapter
 
     subscriptions.add(api.getWallet()
-        .flatMap { entries ->
-          combineLatest(
-              Observable.just<List<WalletEntry>>(entries),
-              api.getCurrencies(entries.map(WalletEntry::id).toQuery()).map { currencies ->
-                currencies.sortedBy(Currency::order)
-              },
-              BiFunction<List<WalletEntry>, List<Currency>, Pair<List<WalletEntry>, List<Currency>>>(::Pair)
-          )
-        }
         .subscribeOn(io())
+        .flatMap { entries ->
+          api.getCurrencies(entries.map(WalletEntry::id).toQuery()).map { currencies ->
+            Pair(currencies.sortedBy(Currency::order), entries)
+          }
+        }
         .observeOn(mainThread())
-        .subscribe { (entries, currencies) -> adapter.setCurrencies(currencies, entries) })
+        .firstElement()
+        .subscribe { (currencies, entries) -> adapter.setCurrencies(currencies, entries) })
   }
 
   class Adapter(private val context: Context) : BaseAdapter() {

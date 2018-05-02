@@ -1,7 +1,6 @@
 package com.cerridan.gw2wallet.dagger
 
 import android.app.Application
-import android.content.Context
 
 class DaggerInjector(app: Application) {
   companion object {

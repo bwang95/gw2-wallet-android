@@ -7,10 +7,6 @@ import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-/**
- * Created by Brian on 10/3/2017.
- */
-
 interface GW2API {
   @GET("/v2/currencies")
   fun getCurrencies(@Query("ids") ids: QueryArray<Int>): Observable<List<Currency>>

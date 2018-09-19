@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-  compileSdkVersion 27
-  buildToolsVersion "27.0.3"
+  compileSdkVersion 28
+  buildToolsVersion "28.0.2"
   defaultConfig {
     applicationId "com.cerridan.gw2wallet"
     minSdkVersion 16
-    targetSdkVersion 27
+    targetSdkVersion 28
     versionCode 1
     versionName "1.0"
   }
@@ -23,9 +23,9 @@ android {
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-  implementation 'com.android.support:appcompat-v7:27.1.1'
-  implementation 'com.android.support:recyclerview-v7:27.1.1'
-  implementation 'com.android.support:design:27.1.1'
+  implementation 'com.android.support:appcompat-v7:28.0.0-rc02'
+  implementation 'com.android.support:recyclerview-v7:28.0.0-rc02'
+  implementation 'com.android.support:design:28.0.0-rc02'
 
   implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
   implementation 'com.squareup.retrofit2:retrofit:2.4.0'
@@ -33,8 +33,10 @@ dependencies {
   implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 
   implementation 'com.squareup.picasso:picasso:2.5.2'
+  implementation 'com.squareup.phrase:phrase:1.1.0'
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
   implementation 'com.google.dagger:dagger:2.15'
+  implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'
 
   implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
   implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'

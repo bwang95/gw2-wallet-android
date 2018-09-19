@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:id="@+id/mi_drawer_character"
+      android:icon="@drawable/icon_characters"
+      android:title="@string/menu_main_character"
+      />
+  <item
+      android:id="@+id/mi_drawer_wallet"
+      android:icon="@drawable/icon_wallet"
+      android:title="@string/menu_main_wallet"
+      />
+</menu>

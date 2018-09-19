@@ -24,7 +24,6 @@ import com.cerridan.gw2wallet.util.castedInflate
 import com.cerridan.gw2wallet.util.displayedChildId
 import com.cerridan.gw2wallet.view.CurrencyItemView
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -33,8 +32,6 @@ class WalletFragment: BaseFragment(R.layout.fragment_wallet) {
 
   private val animator: ViewAnimator by bindView(R.id.va_wallet_animator)
   private val walletRecycler: RecyclerView by bindView(R.id.rv_wallet_recycler)
-
-  private val subscriptions = CompositeDisposable()
 
   init { DaggerInjector.appComponent.inject(this) }
 
@@ -49,7 +46,7 @@ class WalletFragment: BaseFragment(R.layout.fragment_wallet) {
       setDrawable(ResourcesCompat.getDrawable(view.resources, R.drawable.horizontal_divider, null)!!)
     })
 
-    subscriptions.add(api.getWallet()
+    api.getWallet()
         .subscribeOn(Schedulers.io())
         .flatMap { entries ->
           api.getCurrencies(entries.map(WalletEntry::id).toQuery()).map { currencies ->
@@ -60,13 +57,8 @@ class WalletFragment: BaseFragment(R.layout.fragment_wallet) {
         .firstElement()
         .doOnSubscribe { animator.displayedChildId = R.id.pb_wallet_progress }
         .doOnEvent { _, _ -> animator.displayedChildId = R.id.rv_wallet_recycler }
-        .subscribe { (currencies, entries) -> adapter.setCurrencies(currencies, entries) })
-  }
-
-  override fun onDetach() {
-    subscriptions.clear()
-
-    super.onDetach()
+        .subscribe { (currencies, entries) -> adapter.setCurrencies(currencies, entries) }
+        .unsubscribeOnDestroy()
   }
 
   class ViewHolder(val view: CurrencyItemView): RecyclerView.ViewHolder(view)

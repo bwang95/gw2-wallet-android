@@ -3,4 +3,5 @@
   <dimen name="global_margin">16dp</dimen>
   <dimen name="list_divider_size">1px</dimen>
   <dimen name="currency_icon_size">24dp</dimen>
+  <dimen name="global_line_spacing">4sp</dimen>
 </resources>

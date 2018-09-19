@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ViewAnimator
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/va_wallet_animator"
+    android:id="@+id/va_character_animator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:inAnimation="@android:anim/fade_in"
-    android:outAnimation="@android:anim/fade_out"
-    >
+    android:outAnimation="@android:anim/fade_out">
   <ProgressBar
-      android:id="@+id/pb_wallet_progress"
+      android:id="@+id/pb_character_progress"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:indeterminate="true"
       />
   <android.support.v7.widget.RecyclerView
-      android:id="@+id/rv_wallet_recycler"
+      android:id="@+id/rv_character_recycler"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       />
